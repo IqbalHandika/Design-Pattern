@@ -1,6 +1,6 @@
 #pragma once
 #include "Ghost.h"
-#inlcude "GhostFactory.h"
+#include "GhostFactory.h"
 
 class BlueGhost : public Ghost {
 public:
