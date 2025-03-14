@@ -1,6 +1,7 @@
 #include "movement.h"
 #include "map.h"
 #include <iostream> // Add this include for std::cout and std::endl
+#include <cstdlib> // Add this include for system()
 
 // Function to check for collisions with ghosts
 bool checkCollisionWithGhost(const std::vector<std::vector<char>>& map, int pacmanX, int pacmanY) {
@@ -22,5 +23,16 @@ void movePacman(std::vector<std::vector<char>>& map, int& pacmanX, int& pacmanY,
         pacmanX = newX;
         pacmanY = newY;
         map[pacmanY][pacmanX] = 'P'; // Set new position
+
+        // Clear the console screen
+        system("CLS");
+
+        // Redraw the map
+        for (const auto& row : map) {
+            for (const auto& cell : row) {
+                std::cout << cell;
+            }
+            std::cout << std::endl;
+        }
     }
 }
