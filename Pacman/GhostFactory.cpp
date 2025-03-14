@@ -1,4 +1,6 @@
 #include "GhostFactory.h"
+#include "RedGhost.h"
+#include "BlueGhost.h"
 
 // Static method to get the singleton instance of GhostFactory
 GhostFactory& GhostFactory::getInstance() {
