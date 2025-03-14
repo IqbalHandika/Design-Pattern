@@ -1,5 +1,6 @@
 #include "movement.h"
 #include "map.h"
+#include "GhostFactory.h"
 #include <conio.h>
 #include <vector>
 
