@@ -12,11 +12,11 @@ bool Pacman::checkCollisionWithGhost(const std::vector<std::vector<char>>& map) 
     return false;
 }
 
-void Pacman::move(std::vector<std::vector<char>>& map, int newX, int newY) {
+bool Pacman::move(std::vector<std::vector<char>>& map, int newX, int newY) {
     if (newX >= 0 && newX < map[0].size() && newY >= 0 && newY < map.size() && map[newY][newX] != '#') {
-        if (checkCollisionWithGhost(map)) {
+        if (map[newY][newX] == 'R' || map[newY][newX] == 'B') {
             std::cout << "Collision detected at (" << newX << ", " << newY << ")" << std::endl;
-            exit(0); // Terminate the game
+            return false; // Indicate collision
         }
         map[y][x] = ' '; // Clear old position
         x = newX;
@@ -27,6 +27,7 @@ void Pacman::move(std::vector<std::vector<char>>& map, int newX, int newY) {
         system("CLS");
 
     }
+    return true; // Indicate no collision
 }
 
 int Pacman::getX() const {

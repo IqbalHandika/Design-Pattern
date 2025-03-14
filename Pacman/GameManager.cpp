@@ -45,7 +45,9 @@ void GameManager::gameLoop() {
             else if (input == 'd') newX++;
             else if (input == 'q') break;
 
-            pacman.move(map, newX, newY);
+            if (!pacman.move(map, newX, newY)) {
+                break; // Terminate the game loop if collision occurs
+            }
             renderMap(map);
         }
     }
