@@ -27,12 +27,5 @@ void movePacman(std::vector<std::vector<char>>& map, int& pacmanX, int& pacmanY,
         // Clear the console screen
         system("CLS");
 
-        // Redraw the map
-        for (const auto& row : map) {
-            for (const auto& cell : row) {
-                std::cout << cell;
-            }
-            std::cout << std::endl;
-        }
     }
 }
