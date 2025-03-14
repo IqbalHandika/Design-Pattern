@@ -1,9 +1,7 @@
-#include "GhostFactory.h"
-#include "map.h"
 #include "movement.h"
-#include <iostream>
+#include "map.h"
+#include <conio.h>
 #include <vector>
-#include <conio.h> // For _kbhit() and _getch()
 
 int main() {
     // Register all ghost types
@@ -32,16 +30,13 @@ int main() {
             char input = _getch();
             int newX = pacmanX, newY = pacmanY;
 
-            if (input == 'w') newY--; // Move up
-            else if (input == 's') newY++; // Move down
-            else if (input == 'a') newX--; // Move left
-            else if (input == 'd') newX++; // Move right
-            else if (input == 'q') break; // Quit the game
+            if (input == 'w') newY--;
+            else if (input == 's') newY++;
+            else if (input == 'a') newX--;
+            else if (input == 'd') newX++;
+            else if (input == 'q') break;
 
             movePacman(map, pacmanX, pacmanY, newX, newY);
-
-            // Render the updated map
-            system("cls"); // Clear the console (Windows-specific)
             renderMap(map);
         }
     }
