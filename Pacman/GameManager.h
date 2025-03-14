@@ -2,6 +2,7 @@
 #define GAME_MANAGER_H
 
 #include "pacman.h"
+#include "GhostFactory.h"
 #include <vector>
 
 class GameManager {
@@ -14,6 +15,7 @@ private:
     Pacman pacman;
 
     void initializeMap();
+    void placeGhosts();
     void gameLoop();
 };
 

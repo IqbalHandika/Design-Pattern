@@ -1,4 +1,5 @@
 #include "pacman.h"
+#include <iostream>
 #include <cstdlib> // For system()
 
 Pacman::Pacman(int startX, int startY) : x(startX), y(startY) {}
@@ -25,13 +26,6 @@ void Pacman::move(std::vector<std::vector<char>>& map, int newX, int newY) {
         // Clear the console screen
         system("CLS");
 
-        // Redraw the map
-        for (const auto& row : map) {
-            for (const auto& cell : row) {
-                std::cout << cell;
-            }
-            std::cout << std::endl;
-        }
     }
 }
 
