@@ -9,6 +9,7 @@ GameManager::GameManager() : pacman(1, 1) {
 }
 
 void GameManager::initializeMap() {
+<<<<<<< HEAD
     // Initialize the map with your existing map values
     map = std::vector<std::vector<char>>(MAP_HEIGHT, std::vector<char>(MAP_WIDTH));
     ::initializeMap(map);
@@ -26,6 +27,21 @@ void GameManager::placeGhosts() {
     // Place ghosts on the map
     placeCharacterOnMap(map, 3, 3, 'R'); // Place RedGhost at (3, 3)
     placeCharacterOnMap(map, 4, 6, 'B'); // Place BlueGhost at (4, 6)
+=======
+    // Initialize the map with some default values
+    map = {
+        {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+        {'#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
+        {'#', ' ', ' ', '#', '#', '#', '#', '#', ' ', '#'},
+        {'#', '#', ' ', '#', ' ', ' ', '#', ' ', ' ', '#'},
+        {'#', ' ', ' ', '#', ' ', ' ', '#', ' ', '#', '#'},
+        {'#', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#'},
+        {'#', ' ', '#', '#', ' ', ' ', '#', ' ', ' ', '#'},
+        {'#', ' ', ' ', '#', '#', '#', '#', ' ', ' ', '#'},
+        {'#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
+        {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}
+    };
+>>>>>>> 1e15b95f9eb52fa3079a96541d6aa872277638d5
 }
 
 void GameManager::startGame() {
