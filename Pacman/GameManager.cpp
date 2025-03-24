@@ -22,10 +22,14 @@ void GameManager::placeGhosts() {
     // Create ghosts dynamically
     auto redGhost = GhostFactory::getInstance().createGhost("RedGhost");
     auto blueGhost = GhostFactory::getInstance().createGhost("BlueGhost");
+    auto PinkGhost = GhostFactory::getInstance().createGhost("PinkGhost");
+    auto OrangeGhost = GhostFactory::getInstance().createGhost("OrangeGhost");
 
     // Place ghosts on the map
-    placeCharacterOnMap(map, 3, 3, 'R'); // Place RedGhost at (3, 3)
-    placeCharacterOnMap(map, 4, 6, 'B'); // Place BlueGhost at (4, 6)
+    placeCharacterOnMap(map, 4, 4, 'R'); // Place RedGhost at (3, 3)
+    placeCharacterOnMap(map, 4, 5, 'B'); // Place BlueGhost at (4, 6)
+    placeCharacterOnMap(map, 5, 4, 'P'); // Place PinkGhost at (7, 4)
+    placeCharacterOnMap(map, 5, 5, 'O'); // Place OrangeGhost at (7, 7)
 }
 
 void GameManager::startGame() {

@@ -1,6 +1,8 @@
 #include "GhostFactory.h"
 #include "RedGhost.h"
 #include "BlueGhost.h"
+#include "OrangeGhost.h"
+#include "PinkGhost.h"
 
 // Static method to get the singleton instance of GhostFactory
 GhostFactory& GhostFactory::getInstance() {
@@ -26,4 +28,6 @@ std::unique_ptr<Ghost> GhostFactory::createGhost(const std::string& type) {
 void registerGhosts() {
     REGISTER_GHOST_TYPE(RedGhost);
     REGISTER_GHOST_TYPE(BlueGhost);
+    REGISTER_GHOST_TYPE(OrangeGhost);
+    REGISTER_GHOST_TYPE(PinkGhost);
 }
