@@ -26,7 +26,7 @@ bool Pacman::move(std::vector<std::vector<char>>& map, int newX, int newY) {
         map[y][x] = ' '; // Clear old position
         x = newX;
         y = newY;
-        map[y][x] = 'P'; // Set new position
+        map[y][x] = '<'; // Set new position with Pac-Man's new icon
 
         // Clear the console screen
         system("CLS");
