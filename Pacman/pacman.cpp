@@ -18,15 +18,23 @@ bool Pacman::checkCollisionWithGhost(const std::vector<std::vector<char>>& map) 
 }
 
 bool Pacman::move(std::vector<std::vector<char>>& map, int newX, int newY) {
+    // Check if the new position is within bounds and not a wall
     if (newX >= 0 && newX < map[0].size() && newY >= 0 && newY < map.size() && map[newY][newX] != '#') {
-        if (checkCollisionWithGhost(map)) {
-            std::cout << "Collision detected at (" << newX << ", " << newY << ")" << std::endl;
-            return false; // Indicate collision
-        }
-        map[y][x] = ' '; // Clear old position
+        // Temporarily move Pac-Man to the new position to check for collision
+        int oldX = x, oldY = y;
         x = newX;
         y = newY;
-        map[y][x] = '<'; // Set new position with Pac-Man's new icon
+
+        if (checkCollisionWithGhost(map)) {
+            // If collision is detected, reset Pac-Man's position and terminate the game
+            x = oldX;
+            y = oldY;
+            return false; // Indicate collision
+        }
+
+        // No collision: update the map
+        map[oldY][oldX] = ' '; // Clear old position
+        map[y][x] = '<';       // Set new position with Pac-Man's new icon
 
         // Clear the console screen
         system("CLS");

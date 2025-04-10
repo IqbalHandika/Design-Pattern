@@ -51,6 +51,7 @@ void GameManager::gameLoop() {
             else if (input == 'q') break;
 
             if (!pacman->move(map, newX, newY)) {
+                std::cout << "Game Over!" << std::endl;
                 break; // Terminate the game loop if collision occurs
             }
             renderMap(map);
