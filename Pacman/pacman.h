@@ -5,7 +5,17 @@
 
 class Pacman {
 public:
-    Pacman(int startX, int startY);
+    // Singleton access method
+    static Pacman& getInstance(int startX = 0, int startY = 0) {
+        static Pacman instance(startX, startY);
+        return instance;
+    }
+
+    // Delete copy constructor and assignment operator to enforce singleton
+    Pacman(const Pacman&) = delete;
+    Pacman& operator=(const Pacman&) = delete;
+
+    // Existing methods
     bool checkCollisionWithGhost(const std::vector<std::vector<char>>& map);
     bool move(std::vector<std::vector<char>>& map, int newX, int newY);
 
@@ -13,6 +23,9 @@ public:
     int getY() const;
 
 private:
+    // Private constructor for singleton
+    Pacman(int startX, int startY);
+
     int x;
     int y;
 };

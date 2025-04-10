@@ -3,6 +3,7 @@
 #include <cstdlib> // For system()
 #include <unordered_set>
 
+// Private constructor for singleton
 Pacman::Pacman(int startX, int startY) : x(startX), y(startY) {}
 
 bool Pacman::checkCollisionWithGhost(const std::vector<std::vector<char>>& map) {
@@ -18,7 +19,7 @@ bool Pacman::checkCollisionWithGhost(const std::vector<std::vector<char>>& map) 
 
 bool Pacman::move(std::vector<std::vector<char>>& map, int newX, int newY) {
     if (newX >= 0 && newX < map[0].size() && newY >= 0 && newY < map.size() && map[newY][newX] != '#') {
-        if (map[newY][newX] == 'R' || map[newY][newX] == 'B' || map[newY][newX] == 'P' || map[newY][newX] == 'O') {
+        if (checkCollisionWithGhost(map)) {
             std::cout << "Collision detected at (" << newX << ", " << newY << ")" << std::endl;
             return false; // Indicate collision
         }
@@ -30,6 +31,13 @@ bool Pacman::move(std::vector<std::vector<char>>& map, int newX, int newY) {
         // Clear the console screen
         system("CLS");
 
+        // Redraw the map
+        for (const auto& row : map) {
+            for (const auto& cell : row) {
+                std::cout << cell;
+            }
+            std::cout << std::endl;
+        }
     }
     return true; // Indicate no collision
 }
