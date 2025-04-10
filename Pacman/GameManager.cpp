@@ -13,7 +13,7 @@ void GameManager::initializeMap() {
     // Initialize the map with your existing map values
     map = std::vector<std::vector<char>>(MAP_HEIGHT, std::vector<char>(MAP_WIDTH));
     ::initializeMap(map);
-    placeCharacterOnMap(map, pacman->getX(), pacman->getY(), 'P'); // Place Pacman at (1, 1)
+    placeCharacterOnMap(map, pacman->getX(), pacman->getY(), '<'); // Place Pacman with new icon
 }
 
 void GameManager::placeGhosts() {

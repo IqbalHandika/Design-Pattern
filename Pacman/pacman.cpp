@@ -8,7 +8,7 @@ Pacman::Pacman(int startX, int startY) : x(startX), y(startY) {}
 
 bool Pacman::checkCollisionWithGhost(const std::vector<std::vector<char>>& map) {
     // Set of ghost symbols
-    std::unordered_set<char> ghostSymbols = {'R', 'B', 'P', 'O'};
+    std::unordered_set<char> ghostSymbols = {'R', 'B', 'P', 'O'}; // Ghost symbols only
     
     if (ghostSymbols.find(map[y][x]) != ghostSymbols.end()) {
         std::cout << "Pacman hit a ghost! Game over." << std::endl;
