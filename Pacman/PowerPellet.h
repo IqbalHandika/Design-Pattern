@@ -14,6 +14,9 @@ public:
     // Check if the power pellet effect has expired
     void update(Pacman& pacman);
 
+    // Get the remaining time for the power pellet effect
+    double getRemainingTime() const;
+
 private:
     TimeSystem& timeSystem; // Reference to the time system
     std::vector<std::unique_ptr<Ghost>>& ghosts; // Reference to the ghosts

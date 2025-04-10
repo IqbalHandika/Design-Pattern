@@ -14,7 +14,6 @@ public:
     // Reset a timer
     void resetTimer(const std::string& timerName);
 
-private:
     // Store the start time of each timer
     std::unordered_map<std::string, std::chrono::steady_clock::time_point> timers;
 };

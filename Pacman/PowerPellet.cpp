@@ -1,6 +1,8 @@
 #include "PowerPellet.h"
+#include "SpeedBoostDecorator.h"
 #include "FrightenedState.h"
 #include "WanderState.h"
+#include "TimeSystem.h"
 #include <iostream>
 
 PowerPellet::PowerPellet(TimeSystem& timeSystem, std::vector<std::unique_ptr<Ghost>>& ghosts)
@@ -12,9 +14,11 @@ void PowerPellet::activate(Pacman& pacman, std::vector<std::vector<char>>& map) 
     // Activate power mode for Pac-Man
     pacman.setPowerModeActive(true);
 
-    // Switch all ghosts to FrightenedState
+    // Switch all ghosts to FrightenedState with SpeedBoostDecorator
     for (auto& ghost : ghosts) {
-        ghost->setState(std::make_unique<FrightenedState>());
+        ghost->setState(std::make_unique<SpeedBoostDecorator>(
+            std::make_unique<FrightenedState>()
+        ));
     }
 
     // Start the Power Pellet timer
@@ -35,4 +39,13 @@ void PowerPellet::update(Pacman& pacman) {
         pacman.setPowerModeActive(false);
         isActive = false;
     }
+}
+
+double PowerPellet::getRemainingTime() const {
+    if (isActive) {
+        auto elapsed = timeSystem.isTimerExpired("PowerPellet", 0.0) ? 0.0 : 5.0 - std::chrono::duration<double>(
+            std::chrono::steady_clock::now() - timeSystem.timers.at("PowerPellet")).count();
+        return elapsed > 0 ? elapsed : 0.0;
+    }
+    return 0.0;
 }

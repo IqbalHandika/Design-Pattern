@@ -2,6 +2,7 @@
 #include "map.h"
 #include <conio.h>
 #include <iostream>
+#include <iomanip> // For std::setprecision
 
 GameManager::GameManager() {
     pacman = &Pacman::getInstance(1, 1); // Initialize Pacman at (1, 1)
@@ -71,6 +72,12 @@ void GameManager::gameLoop() {
 
             // Update the Power Pellet effect
             powerPellet->update(*pacman);
+
+            // Display remaining time for Power Pellet
+            double remainingTime = powerPellet->getRemainingTime();
+            if (remainingTime > 0) {
+                std::cout << "Power Pellet Time Remaining: " << std::fixed << std::setprecision(2) << remainingTime << " seconds" << std::endl;
+            }
 
             renderMap(map);
         }
