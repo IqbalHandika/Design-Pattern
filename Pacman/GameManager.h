@@ -12,7 +12,7 @@ public:
 
 private:
     std::vector<std::vector<char>> map;
-    Pacman pacman;
+    Pacman* pacman; // Pointer to the singleton Pacman instance
 
     void initializeMap();
     void placeGhosts();

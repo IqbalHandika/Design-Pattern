@@ -26,8 +26,8 @@ std::unique_ptr<Ghost> GhostFactory::createGhost(const std::string& type) {
 
 // Function to register all ghost types
 void registerGhosts() {
-    REGISTER_GHOST_TYPE(RedGhost);
-    REGISTER_GHOST_TYPE(BlueGhost);
-    REGISTER_GHOST_TYPE(OrangeGhost);
-    REGISTER_GHOST_TYPE(PinkGhost);
+    GhostFactory::getInstance().registerGhost("RedGhost", []() { return std::make_unique<RedGhost>(0, 0); });
+    GhostFactory::getInstance().registerGhost("BlueGhost", []() { return std::make_unique<BlueGhost>(0, 0); });
+    GhostFactory::getInstance().registerGhost("OrangeGhost", []() { return std::make_unique<OrangeGhost>(0, 0); });
+    GhostFactory::getInstance().registerGhost("PinkGhost", []() { return std::make_unique<PinkGhost>(0, 0); });
 }
