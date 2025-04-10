@@ -3,7 +3,10 @@
 
 #include "pacman.h"
 #include "GhostFactory.h"
+#include "TimeSystem.h"
+#include "PowerPellet.h"
 #include <vector>
+#include <memory>
 
 class GameManager {
 public:
@@ -13,6 +16,9 @@ public:
 private:
     std::vector<std::vector<char>> map;
     Pacman* pacman; // Pointer to the singleton Pacman instance
+    TimeSystem timeSystem; // Time system for managing timers
+    std::vector<std::unique_ptr<Ghost>> ghosts; // List of ghosts
+    PowerPellet* powerPellet; // Power pellet manager
 
     void initializeMap();
     void placeGhosts();

@@ -18,8 +18,13 @@ bool Pacman::checkCollisionWithGhost(const std::vector<std::vector<char>>& map) 
 }
 
 bool Pacman::move(std::vector<std::vector<char>>& map, int newX, int newY) {
-    // Check if the new position is within bounds and not a wall
     if (newX >= 0 && newX < map[0].size() && newY >= 0 && newY < map.size() && map[newY][newX] != '#') {
+        // Check for Power Pellet
+        if (map[newY][newX] == 'o') {
+            std::cout << "Pac-Man ate a Power Pellet!" << std::endl;
+            powerModeActive = true; // Activate power mode
+        }
+
         // Temporarily move Pac-Man to the new position to check for collision
         int oldX = x, oldY = y;
         x = newX;

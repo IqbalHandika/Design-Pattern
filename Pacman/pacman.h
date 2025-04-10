@@ -22,12 +22,17 @@ public:
     int getX() const;
     int getY() const;
 
+    // Power mode methods
+    bool isPowerModeActive() const { return powerModeActive; }
+    void setPowerModeActive(bool active) { powerModeActive = active; }
+
 private:
     // Private constructor for singleton
     Pacman(int startX, int startY);
 
     int x;
     int y;
+    bool powerModeActive = false; // Flag for power mode
 };
 
 #endif // PACMAN_H

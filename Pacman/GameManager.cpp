@@ -7,6 +7,9 @@ GameManager::GameManager() {
     pacman = &Pacman::getInstance(1, 1); // Initialize Pacman at (1, 1)
     initializeMap();
     placeGhosts();
+
+    // Initialize the PowerPellet manager
+    powerPellet = new PowerPellet(timeSystem, ghosts);
 }
 
 void GameManager::initializeMap() {
@@ -14,6 +17,10 @@ void GameManager::initializeMap() {
     map = std::vector<std::vector<char>>(MAP_HEIGHT, std::vector<char>(MAP_WIDTH));
     ::initializeMap(map);
     placeCharacterOnMap(map, pacman->getX(), pacman->getY(), '<'); // Place Pacman with new icon
+
+    // Place Power Pellets on the map
+    placeCharacterOnMap(map, 2, 2, 'o'); // Example Power Pellet at (2, 2)
+    placeCharacterOnMap(map, 6, 6, 'o'); // Example Power Pellet at (6, 6)
 }
 
 void GameManager::placeGhosts() {
@@ -21,10 +28,10 @@ void GameManager::placeGhosts() {
     registerGhosts();
 
     // Create ghosts dynamically
-    auto redGhost = GhostFactory::getInstance().createGhost("RedGhost");
-    auto blueGhost = GhostFactory::getInstance().createGhost("BlueGhost");
-    auto pinkGhost = GhostFactory::getInstance().createGhost("PinkGhost");
-    auto orangeGhost = GhostFactory::getInstance().createGhost("OrangeGhost");
+    ghosts.push_back(GhostFactory::getInstance().createGhost("RedGhost"));
+    ghosts.push_back(GhostFactory::getInstance().createGhost("BlueGhost"));
+    ghosts.push_back(GhostFactory::getInstance().createGhost("PinkGhost"));
+    ghosts.push_back(GhostFactory::getInstance().createGhost("OrangeGhost"));
 
     // Place ghosts on the map
     placeCharacterOnMap(map, 4, 4, 'R'); // Place RedGhost at (4, 4)
@@ -34,6 +41,8 @@ void GameManager::placeGhosts() {
 }
 
 void GameManager::startGame() {
+    // Start timers for ghost state transitions and power pellet mode
+    timeSystem.startTimer("GhostStateSwitch");
     renderMap(map);
     gameLoop();
 }
@@ -54,6 +63,15 @@ void GameManager::gameLoop() {
                 std::cout << "Game Over!" << std::endl;
                 break; // Terminate the game loop if collision occurs
             }
+
+            // Check if Pac-Man ate a Power Pellet
+            if (pacman->isPowerModeActive()) {
+                powerPellet->activate(*pacman, map);
+            }
+
+            // Update the Power Pellet effect
+            powerPellet->update(*pacman);
+
             renderMap(map);
         }
     }
