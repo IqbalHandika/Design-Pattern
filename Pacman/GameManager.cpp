@@ -3,6 +3,7 @@
 #include <conio.h>
 #include <iostream>
 #include <iomanip> // For std::setprecision
+#include <chrono> // For time-related functions
 
 GameManager::GameManager() {
     pacman = &Pacman::getInstance(1, 1); // Initialize Pacman at (1, 1)
