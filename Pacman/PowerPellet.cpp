@@ -2,7 +2,6 @@
 #include "SpeedBoostDecorator.h"
 #include "FrightenedState.h"
 #include "WanderState.h"
-#include "TimeSystem.h"
 #include <iostream>
 
 PowerPellet::PowerPellet(TimeSystem& timeSystem, std::vector<std::unique_ptr<Ghost>>& ghosts)
@@ -43,9 +42,13 @@ void PowerPellet::update(Pacman& pacman) {
 
 double PowerPellet::getRemainingTime() const {
     if (isActive) {
-        auto elapsed = timeSystem.isTimerExpired("PowerPellet", 0.0) ? 0.0 : 5.0 - std::chrono::duration<double>(
-            std::chrono::steady_clock::now() - timeSystem.timers.at("PowerPellet")).count();
-        return elapsed > 0 ? elapsed : 0.0;
+        auto it = timeSystem.timers.find("PowerPellet");
+        if (it != timeSystem.timers.end()) {
+            auto elapsed = std::chrono::duration<double>(
+                std::chrono::steady_clock::now() - it->second
+            ).count();
+            return std::max(0.0, 5.0 - elapsed); // 5.0 seconds duration
+        }
     }
     return 0.0;
 }
