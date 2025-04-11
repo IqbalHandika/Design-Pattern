@@ -33,6 +33,7 @@ void Ghost::move(std::vector<std::vector<char>>& map) {
     if (x == pacman.getX() && y == pacman.getY()) {
         // Handle collision (e.g., game over)
         std::cout << "Pac-Man collided with a ghost! Game over!" << std::endl;
+        running = false; // Stop the ghost's movement thread
         return;
     }
 
