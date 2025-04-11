@@ -11,9 +11,6 @@ std::pair<int, int> GhostState::getNextPosition(Ghost& ghost, int dx, int dy, co
         return {newX, newY};
     }
 
-    // Debug output for invalid moves
-    std::cout << "Invalid move for ghost at (" << ghost.getX() << ", " << ghost.getY() << ") to (" << newX << ", " << newY << ")" << std::endl;
-
     // Return current position if the move is invalid
     return {ghost.getX(), ghost.getY()};
 }
