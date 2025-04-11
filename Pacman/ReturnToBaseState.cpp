@@ -3,9 +3,6 @@
 #include <iostream>
 
 void ReturnToBaseState::move(Ghost& ghost, std::vector<std::vector<char>>& map) {
-    // Implement the logic to return to the ghost house
-    std::cout << "Returning to base" << std::endl;
-
     // Example logic: move towards the ghost house position
     int baseX = 1; // Assuming the base is at (1, 1)
     int baseY = 1;
