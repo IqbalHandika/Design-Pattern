@@ -40,17 +40,6 @@ bool Pacman::move(std::vector<std::vector<char>>& map, int newX, int newY) {
         // No collision: update the map
         map[oldY][oldX] = ' '; // Clear old position
         map[y][x] = '<';       // Set new position with Pac-Man's new icon
-
-        // Clear the console screen
-        system("CLS");
-
-        // Redraw the map
-        for (const auto& row : map) {
-            for (const auto& cell : row) {
-                std::cout << cell;
-            }
-            std::cout << std::endl;
-        }
     }
     return true; // Indicate no collision
 }

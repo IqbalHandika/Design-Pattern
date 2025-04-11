@@ -57,30 +57,39 @@ void GameManager::startGame() {
 }
 
 void GameManager::gameLoop() {
-    while (true) {
+    char lastInput = 'd'; // Default direction for Pac-Man (right)
+    bool gameRunning = true;
+
+    while (gameRunning) {
+        // Handle player input (non-blocking)
         if (_kbhit()) {
             char input = _getch();
-            int newX = pacman->getX(), newY = pacman->getY();
-
-            if (input == 'w') newY--;
-            else if (input == 's') newY++;
-            else if (input == 'a') newX--;
-            else if (input == 'd') newX++;
-            else if (input == 'q') break;
-
-            if (!pacman->move(map, newX, newY)) {
-                std::cout << "Game Over!" << std::endl;
-                break; // Terminate the game loop if collision occurs
+            if (input == 'w' || input == 'a' || input == 's' || input == 'd') {
+                lastInput = input; // Update Pac-Man's direction
+            } else if (input == 'q') {
+                gameRunning = false; // Quit the game
             }
-
-            // Check if Pac-Man ate a Power Pellet
-            if (map[newY][newX] == 'o') {
-                powerPellet->activate(*pacman);
-                map[newY][newX] = ' '; // Remove the Power Pellet from the map
-            }
-
-            renderMap(map); // Render the map after processing input
         }
+
+        // Move Pac-Man in the last input direction
+        int newX = pacman->getX(), newY = pacman->getY();
+        if (lastInput == 'w') newY--;
+        else if (lastInput == 's') newY++;
+        else if (lastInput == 'a') newX--;
+        else if (lastInput == 'd') newX++;
+
+        if (!pacman->move(map, newX, newY)) {
+            std::cout << "Game Over!" << std::endl;
+            break; // End the game if Pac-Man collides with a ghost
+        }
+
+        // Update the map for all ghosts
+        for (auto& ghost : ghosts) {
+            ghost->updateState(); // Handle state transitions
+        }
+
+        // Render the map
+        renderMap(map);
 
         // Display remaining time for Power Pellet
         if (powerPellet->isActive()) {
@@ -90,5 +99,13 @@ void GameManager::gameLoop() {
             // Clear the timer line when the Power Pellet effect ends
             std::cout << "\r" << std::string(50, ' ') << "\r" << std::flush;
         }
+
+        // Sleep for a short duration to control the game speed
+        std::this_thread::sleep_for(std::chrono::milliseconds(200)); // Adjust speed as needed
+    }
+
+    // Stop ghost movement threads when the game ends
+    for (auto& ghost : ghosts) {
+        ghost->stopMovement();
     }
 }
