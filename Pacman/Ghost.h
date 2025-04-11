@@ -2,6 +2,7 @@
 #define GHOST_H
 
 #include "GhostState.h"
+#include "TimeSystem.h"
 #include <memory>
 #include <string>
 
@@ -18,6 +19,9 @@ public:
     int getY() const;
     void setPosition(int newX, int newY);
 
+    // Update the ghost's state based on the timer
+    void updateState();
+
     // Existing functionality
     virtual std::string getType() const = 0;
 
@@ -25,6 +29,7 @@ private:
     int x;
     int y;
     std::unique_ptr<GhostState> state;
+    TimeSystem timeSystem; // Timer for managing state transitions
 };
 
 #endif // GHOST_H
