@@ -3,7 +3,6 @@
 #include <conio.h>
 #include <iostream>
 #include <iomanip> // For std::setprecision
-#include <chrono> // For time-related functions
 
 GameManager::GameManager() {
     pacman = &Pacman::getInstance(1, 1); // Initialize Pacman at (1, 1)
@@ -11,7 +10,7 @@ GameManager::GameManager() {
     placeGhosts();
 
     // Initialize the PowerPellet manager
-    powerPellet = new PowerPellet(timeSystem, ghosts);
+    powerPellet = new PowerPellet(ghosts);
 }
 
 void GameManager::initializeMap() {
@@ -43,8 +42,6 @@ void GameManager::placeGhosts() {
 }
 
 void GameManager::startGame() {
-    // Start timers for ghost state transitions and power pellet mode
-    timeSystem.startTimer("GhostStateSwitch");
     renderMap(map);
     gameLoop();
 }
@@ -67,20 +64,18 @@ void GameManager::gameLoop() {
             }
 
             // Check if Pac-Man ate a Power Pellet
-            if (pacman->isPowerModeActive()) {
-                powerPellet->activate(*pacman, map);
-            }
-
-            // Update the Power Pellet effect
-            powerPellet->update(*pacman);
-
-            // Display remaining time for Power Pellet
-            double remainingTime = powerPellet->getRemainingTime();
-            if (remainingTime > 0) {
-                std::cout << "Power Pellet Time Remaining: " << std::fixed << std::setprecision(2) << remainingTime << " seconds" << std::endl;
+            if (map[newY][newX] == 'o') {
+                powerPellet->activate(*pacman);
+                map[newY][newX] = ' '; // Remove the Power Pellet from the map
             }
 
             renderMap(map);
+        }
+
+        // Display remaining time for Power Pellet
+        if (powerPellet->isActive()) {
+            double remainingTime = powerPellet->getRemainingTime();
+            std::cout << "Power Pellet Time Remaining: " << std::fixed << std::setprecision(2) << remainingTime << " seconds" << std::endl;
         }
     }
 }

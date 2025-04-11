@@ -111,6 +111,9 @@
     "iomanip": "cpp",
     "span": "cpp",
     "sstream": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "semaphore": "cpp",
+    "stop_token": "cpp",
+    "thread": "cpp"
   }
 }
