@@ -72,15 +72,10 @@ void GameManager::gameLoop() {
             renderMap(map);
         }
 
-        // Update each ghost's state
-        for (auto& ghost : ghosts) {
-            ghost->updateState();
-        }
-
         // Display remaining time for Power Pellet
         if (powerPellet->isActive()) {
             double remainingTime = powerPellet->getRemainingTime();
-            std::cout << "Power Pellet Time Remaining: " << std::fixed << std::setprecision(2) << remainingTime << " seconds" << std::endl;
+            std::cout << "\rPower Pellet Time Remaining: " << std::fixed << std::setprecision(2) << remainingTime << " seconds" << std::flush;
         }
     }
 }
