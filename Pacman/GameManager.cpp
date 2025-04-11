@@ -42,8 +42,18 @@ void GameManager::placeGhosts() {
 }
 
 void GameManager::startGame() {
+    // Start ghost movement threads
+    for (auto& ghost : ghosts) {
+        ghost->startMovement(map);
+    }
+
     renderMap(map);
     gameLoop();
+
+    // Stop ghost movement threads when the game ends
+    for (auto& ghost : ghosts) {
+        ghost->stopMovement();
+    }
 }
 
 void GameManager::gameLoop() {
@@ -69,13 +79,16 @@ void GameManager::gameLoop() {
                 map[newY][newX] = ' '; // Remove the Power Pellet from the map
             }
 
-            renderMap(map);
+            renderMap(map); // Render the map after processing input
         }
 
         // Display remaining time for Power Pellet
         if (powerPellet->isActive()) {
             double remainingTime = powerPellet->getRemainingTime();
             std::cout << "\rPower Pellet Time Remaining: " << std::fixed << std::setprecision(2) << remainingTime << " seconds" << std::flush;
+        } else {
+            // Clear the timer line when the Power Pellet effect ends
+            std::cout << "\r" << std::string(50, ' ') << "\r" << std::flush;
         }
     }
 }

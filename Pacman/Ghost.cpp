@@ -1,16 +1,20 @@
 #include "Ghost.h"
 #include "WanderState.h"
 #include "ChaseState.h"
+#include <chrono>
 
 Ghost::Ghost(int startX, int startY) 
-    : x(startX), y(startY), state(std::make_unique<WanderState>()) {
-    // Start the timer for the initial state
+    : x(startX), y(startY), state(std::make_unique<WanderState>()), running(false) {
     timeSystem.startTimer("StateTimer");
+}
+
+Ghost::~Ghost() {
+    stopMovement(); // Ensure the thread is stopped
 }
 
 void Ghost::setState(std::unique_ptr<GhostState> newState) {
     state = std::move(newState);
-    timeSystem.startTimer("StateTimer"); // Reset the timer for the new state
+    timeSystem.startTimer("StateTimer");
 }
 
 void Ghost::move(std::vector<std::vector<char>>& map) {
@@ -31,14 +35,28 @@ void Ghost::setPosition(int newX, int newY) {
 }
 
 void Ghost::updateState() {
-    // Check if the timer for the current state has expired
-    if (timeSystem.isTimerExpired("StateTimer", 10.0)) { // Example: 10 seconds per state
+    if (timeSystem.isTimerExpired("StateTimer", 10.0)) {
         if (dynamic_cast<WanderState*>(state.get())) {
-            // Switch from WanderState to ChaseState
             setState(std::make_unique<ChaseState>());
         } else if (dynamic_cast<ChaseState*>(state.get())) {
-            // Switch from ChaseState to WanderState
             setState(std::make_unique<WanderState>());
         }
+    }
+}
+
+void Ghost::startMovement(std::vector<std::vector<char>>& map) {
+    running = true;
+    movementThread = std::thread([this, &map]() {
+        while (running) {
+            move(map); // Move the ghost
+            std::this_thread::sleep_for(std::chrono::milliseconds(500)); // Adjust speed as needed
+        }
+    });
+}
+
+void Ghost::stopMovement() {
+    running = false;
+    if (movementThread.joinable()) {
+        movementThread.join();
     }
 }
