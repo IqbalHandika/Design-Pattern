@@ -20,7 +20,7 @@ public:
     double getRemainingTime() const;
 
 private:
-    void timerThreadFunction(double duration);
+    void countdownTimer(int seconds); // Declare the countdownTimer function
 
     std::vector<std::unique_ptr<Ghost>>& ghosts; // Reference to the ghosts
     std::atomic<bool> active; // Whether the power pellet effect is active
