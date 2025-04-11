@@ -10,7 +10,6 @@ std::pair<int, int> GhostState::getNextPosition(Ghost& ghost, int dx, int dy, co
     if (newY >= 0 && newY < map.size() && newX >= 0 && newX < map[newY].size() && map[newY][newX] != '#' && map[newY][newX] != 'P') {
         return {newX, newY};
     }
-
     // Return current position if the move is invalid
     return {ghost.getX(), ghost.getY()};
 }

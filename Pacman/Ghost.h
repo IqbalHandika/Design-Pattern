@@ -32,6 +32,9 @@ public:
     // Existing functionality
     virtual std::string getType() const = 0;
 
+    virtual char getIcon() const = 0;
+
+
 private:
     int x;
     int y;

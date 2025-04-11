@@ -1,14 +1,20 @@
-#pragma once
+#ifndef BLUEGHOST_H
+#define BLUEGHOST_H
+
 #include "Ghost.h"
-#include "GhostFactory.h"
 
 class BlueGhost : public Ghost {
 public:
-    // Constructor that calls the base class constructor
     BlueGhost(int startX, int startY) : Ghost(startX, startY) {}
 
-    // Override the getType method
+    // Override to return the specific icon for BlueGhost
+    char getIcon() const override {
+        return 'B';
+    }
+
     std::string getType() const override {
         return "BlueGhost";
     }
 };
+
+#endif // BLUEGHOST_H

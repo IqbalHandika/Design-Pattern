@@ -1,14 +1,20 @@
-#pragma once
+#ifndef REDGHOST_H
+#define REDGHOST_H
+
 #include "Ghost.h"
-#include "GhostFactory.h"
 
 class RedGhost : public Ghost {
 public:
-    // Constructor that calls the base class constructor
     RedGhost(int startX, int startY) : Ghost(startX, startY) {}
 
-    // Override the getType method
+    // Override to return the specific icon for RedGhost
+    char getIcon() const override {
+        return 'R';
+    }
+
     std::string getType() const override {
         return "RedGhost";
     }
 };
+
+#endif // REDGHOST_H

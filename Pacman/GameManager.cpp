@@ -44,7 +44,7 @@ void GameManager::placeGhosts() {
 void GameManager::startGame() {
     // Start ghost movement threads
     for (auto& ghost : ghosts) {
-        ghost->startMovement(map);
+        ghost->startMovement(map); // Ensure this is called for each ghost
     }
 
     renderMap(map);

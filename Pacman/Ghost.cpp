@@ -18,7 +18,14 @@ void Ghost::setState(std::unique_ptr<GhostState> newState) {
 }
 
 void Ghost::move(std::vector<std::vector<char>>& map) {
+    // Clear the ghost's current position on the map
+    map[y][x] = ' ';
+
+    // Move the ghost
     state->move(*this, map);
+
+    // Update the ghost's new position on the map with its specific icon
+    map[y][x] = getIcon();
 }
 
 int Ghost::getX() const {
