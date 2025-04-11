@@ -1,7 +1,9 @@
 #include "Ghost.h"
 #include "WanderState.h"
 #include "ChaseState.h"
+#include "Pacman.h"
 #include <chrono>
+#include <iostream>
 
 Ghost::Ghost(int startX, int startY) 
     : x(startX), y(startY), state(std::make_unique<WanderState>()), running(false) {
@@ -19,10 +21,20 @@ void Ghost::setState(std::unique_ptr<GhostState> newState) {
 
 void Ghost::move(std::vector<std::vector<char>>& map) {
     // Clear the ghost's current position on the map
-    map[y][x] = ' ';
+    if (map[y][x] != '<' && map[y][x] != '>') { // Do not clear Pac-Man's position
+        map[y][x] = ' ';
+    }
 
     // Move the ghost
     state->move(*this, map);
+
+    // Check if the ghost's new position is the same as Pac-Man's position
+    Pacman& pacman = Pacman::getInstance();
+    if (x == pacman.getX() && y == pacman.getY()) {
+        // Handle collision (e.g., game over)
+        std::cout << "Pac-Man collided with a ghost! Game over!" << std::endl;
+        return;
+    }
 
     // Update the ghost's new position on the map with its specific icon
     map[y][x] = getIcon();
