@@ -32,11 +32,6 @@ void placeCharacterOnMap(std::vector<std::vector<char>>& map, int x, int y, char
     }
 }
 
-// Function to clear the console
-void clearMap() {
-    // Clear the console (Windows-specific)
-    system("CLS");
-}
 
 // Function to render the map to the console
 void renderMap(const std::vector<std::vector<char>>& map) {
