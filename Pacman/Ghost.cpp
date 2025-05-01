@@ -2,6 +2,7 @@
 #include "WanderState.h"
 #include "ChaseState.h"
 #include "Pacman.h"
+#include "map.h"
 #include <chrono>
 #include <iostream>
 

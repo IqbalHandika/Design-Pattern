@@ -1,4 +1,5 @@
 #include "pacman.h"
+#include "map.h"
 #include <iostream>
 #include <cstdlib> // For system()
 #include <unordered_set>
