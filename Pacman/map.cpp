@@ -49,3 +49,20 @@ void updatePositionOnMap(const std::vector<std::vector<char>>& map, int oldX, in
     // Flush the output to ensure it appears immediately
     std::cout << std::flush;
 }
+
+void renderMap(const std::vector<std::vector<char>>& map) {
+    // Clear the console (platform-specific)
+#ifdef _WIN32
+    system("cls"); // Windows
+#else
+    system("clear"); // Linux/Mac
+#endif
+
+    // Draw the map
+    for (const auto& row : map) {
+        for (const auto& cell : row) {
+            std::cout << cell;
+        }
+        std::cout << std::endl;
+    }
+}
