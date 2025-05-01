@@ -1,5 +1,7 @@
 #include "map.h"
 #include <iostream>
+#include <vector>
+
 
 // Function to initialize the map with a predefined maze layout
 void initializeMap(std::vector<std::vector<char>>& map) {
