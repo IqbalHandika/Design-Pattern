@@ -32,11 +32,6 @@ void placeCharacterOnMap(std::vector<std::vector<char>>& map, int x, int y, char
     }
 }
 
-
-#include <iostream>
-#include <vector>
-
-
 // Function to update only the changed positions on the map
 void updatePositionOnMap(const std::vector<std::vector<char>>& map, int oldX, int oldY, int newX, int newY, char character) {
     // Clear the old position
