@@ -37,9 +37,8 @@ bool Pacman::move(std::vector<std::vector<char>>& map, int newX, int newY) {
             return false; // Indicate collision
         }
 
-        // No collision: update the map
-        map[oldY][oldX] = ' '; // Clear old position
-        map[y][x] = '<';       // Set new position with Pac-Man's new icon
+        // Update only the changed positions
+        updatePositionOnMap(map, oldX, oldY, x, y, '<');
     }
     return true; // Indicate no collision
 }

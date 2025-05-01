@@ -20,10 +20,8 @@ void Ghost::setState(std::unique_ptr<GhostState> newState) {
 }
 
 void Ghost::move(std::vector<std::vector<char>>& map) {
-    // Clear the ghost's current position on the map
-    if (map[y][x] != '<' && map[y][x] != '>') { // Do not clear Pac-Man's position
-        map[y][x] = ' ';
-    }
+    // Store the old position
+    int oldX = x, oldY = y;
 
     // Move the ghost
     state->move(*this, map);
@@ -37,8 +35,8 @@ void Ghost::move(std::vector<std::vector<char>>& map) {
         return;
     }
 
-    // Update the ghost's new position on the map with its specific icon
-    map[y][x] = getIcon();
+    // Update only the changed positions
+    updatePositionOnMap(map, oldX, oldY, x, y, getIcon());
 }
 
 int Ghost::getX() const {

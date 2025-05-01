@@ -42,12 +42,18 @@ void GameManager::placeGhosts() {
 }
 
 void GameManager::startGame() {
+    // Clear the console and prepare for real-time updates
+    std::cout << "\033[2J\033[H"; // Clear screen and move cursor to the top-left corner
+
     // Start ghost movement threads
     for (auto& ghost : ghosts) {
         ghost->startMovement(map); // Ensure this is called for each ghost
     }
 
+    // Draw the initial map
     renderMap(map);
+
+    // Start the game loop
     gameLoop();
 
     // Stop ghost movement threads when the game ends

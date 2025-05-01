@@ -33,12 +33,22 @@ void placeCharacterOnMap(std::vector<std::vector<char>>& map, int x, int y, char
 }
 
 
-// Function to render the map to the console
-void renderMap(const std::vector<std::vector<char>>& map) {
-    for (const auto& row : map) {
-        for (const auto& cell : row) {
-            std::cout << cell << ' ';
-        }
-        std::cout << std::endl;
+#include <iostream>
+#include <vector>
+
+
+// Function to update only the changed positions on the map
+void updatePositionOnMap(const std::vector<std::vector<char>>& map, int oldX, int oldY, int newX, int newY, char character) {
+    // Clear the old position
+    if (oldX >= 0 && oldX < MAP_WIDTH && oldY >= 0 && oldY < MAP_HEIGHT) {
+        std::cout << "\033[" << oldY + 1 << ";" << (oldX * 2) + 1 << "H "; // Clear old position
     }
+
+    // Draw the new position
+    if (newX >= 0 && newX < MAP_WIDTH && newY >= 0 && newY < MAP_HEIGHT) {
+        std::cout << "\033[" << newY + 1 << ";" << (newX * 2) + 1 << "H" << character; // Draw new position
+    }
+
+    // Flush the output to ensure it appears immediately
+    std::cout << std::flush;
 }
