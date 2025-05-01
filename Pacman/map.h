@@ -7,3 +7,4 @@ const int MAP_HEIGHT = 10;
 void initializeMap(std::vector<std::vector<char>>& map);
 void placeCharacterOnMap(std::vector<std::vector<char>>& map, int x, int y, char character);
 void renderMap(const std::vector<std::vector<char>>& map);
+void updatePositionOnMap(const std::vector<std::vector<char>>& map, int oldX, int oldY, int newX, int newY, char character);
